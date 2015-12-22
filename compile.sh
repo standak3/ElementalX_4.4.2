@@ -13,7 +13,7 @@ make m8_defconfig
 make -j8 zImage dtbs modules
 
 #dtb
-../dtbtool -p scripts/dtc/ -s 1024 -d "htc,project-id = <" -o boot.img-dtb arch/arm/boot/
+../dtbtool -p scripts/dtc/ -s 2048 -d "htc,project-id = <" -o boot.img-dtb arch/arm/boot/
 
 FILE=arch/arm/boot/zImage
 

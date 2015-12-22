@@ -86,6 +86,11 @@
 #include <linux/android_ediagpmem.h>
 #endif
 
+#ifdef CONFIG_KEXEC_HARDBOOT
+#include <linux/memblock.h>
+#include <asm/setup.h>
+#endif
+
 #if defined(CONFIG_LCD_KCAL)
 #include <linux/module.h>
 #include "../../../drivers/video/msm/mdss/mdss_fb.h"
@@ -791,6 +796,25 @@ static void __init htc_8974_map_io(void)
 
 void __init htc_8974_init_early(void)
 {
+#ifdef CONFIG_KEXEC_HARDBOOT
+		// Reserve space for hardboot page - just after ram_console,
+		// at the start of second memory bank
+		int ret;
+		phys_addr_t start;
+		struct membank* bank;
+
+		if (meminfo.nr_banks < 2) {
+		pr_err("%s: not enough membank\n", __func__);
+		return;
+		}
+		bank = &meminfo.bank[1];
+		start = bank->start + SZ_1M + HTC_8974_PERSISTENT_RAM_SIZE;
+		ret = memblock_remove(start, SZ_1M);
+		if(!ret)
+		pr_info("Hardboot page reserved at 0x%X\n", start);
+		else
+		pr_err("Failed to reserve space for hardboot page at 0x%X!\n", start);
+#endif
 	
 	persistent_ram_early_init(&htc_8974_persistent_ram);
 
