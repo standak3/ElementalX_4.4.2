@@ -7,7 +7,7 @@ rm -rf ../../#output/kernel/
 rm -rf ../../#output/boot.img
 
 export ARCH=arm
-export CROSS_COMPILE=~/kernel/kernelstock/arm-cortex_a15-linux-gnueabihf/bin/arm-cortex_a15-linux-gnueabihf-
+export CROSS_COMPILE=~/kernel/kernelstock/arm-cortex_a15-linux-gnueabihf-linaro_4.9.4/bin/arm-cortex_a15-linux-gnueabihf-
 
 make m8_defconfig
 make -j8 zImage dtbs modules
