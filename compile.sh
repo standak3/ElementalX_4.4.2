@@ -4,7 +4,8 @@ make clean mrproper
 rm -rf ../../#output/kernel_installer.zip
 rm -rf ../../#output/system/
 rm -rf ../../#output/kernel/
-rm -rf ../../#output/boot.img
+rm -rf ../../#output/boot/
+rm -rf ../../#output/boot/boot.img
 
 export ARCH=arm
 export CROSS_COMPILE=~/kernel/kernelstock/arm-cortex_a15-linux-gnueabihf-linaro_4.9.4/bin/arm-cortex_a15-linux-gnueabihf-
@@ -20,6 +21,7 @@ FILE=arch/arm/boot/zImage
 if [ -f $FILE ];
 then
 mkdir ../../#output/kernel
+mkdir ../../#output/boot
 mkdir ../../#output/system
 mkdir ../../#output/system/lib
 mkdir ../../#output/system/lib/modules
